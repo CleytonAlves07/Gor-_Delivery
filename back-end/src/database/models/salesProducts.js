@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-    const saleProduct = sequelize.define('saleProduct', {
+    const SaleProduct = sequelize.define('SaleProduct', {
         saleId: DataTypes.INTEGER,
         productId: DataTypes.INTEGER,
         quantity: DataTypes.INTEGER,
@@ -11,23 +11,23 @@ module.exports = (sequelize, DataTypes) => {
         underscored: true,
     });
 
-    saleProduct.associate = (models) => {
+    SaleProduct.associate = (models) => {
         models.Sale.belongsToMany(models.Product, {
         as: 'products',
-        through: saleProduct,
+        through: SaleProduct,
         foreignKey: 'saleId',
         otherKey: 'productId'
         });
 
-    saleProduct.associate = (models) => {
+    SaleProduct.associate = (models) => {
         models.Product.belongsToMany(models.Sale, {
         as: 'sale',
-        through: saleProduct,
+        through: SaleProduct,
         foreignKey: 'productId',
         otherKey: 'saleId'
         });
     }
 }
 
-return saleProduct;
+return SaleProduct;
 }
