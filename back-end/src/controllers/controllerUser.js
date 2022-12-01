@@ -1,4 +1,5 @@
 const serviceUser = require('../services/serviceUser');
+
 const userLogin = async (request, response) => {
     try {
         const userInfo = await serviceUser.userLogin(request.body.email);

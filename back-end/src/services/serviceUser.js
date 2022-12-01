@@ -14,7 +14,6 @@ const userLogin = async (email) => {
             exclude: ['password'],
         },
     });
-
     
     return userInfo;
 };
