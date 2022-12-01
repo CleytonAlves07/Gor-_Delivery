@@ -40,6 +40,7 @@ const createUser = async ({  email, name, password, role }) => {
 
     return userCreate;
 };
+//Comentário
 
 module.exports = {
     userLogin,
