@@ -1,9 +1,8 @@
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
+const md5 = require('md5');
 const { User } = require('../database/models');
 const httpException = require('../middleware/httpException');
-const md5 = require('md5');
-
 
 const jwtConfig = {
     expiresIn: '7d',
@@ -29,18 +28,17 @@ const generateToken = async ({ email, password }) => {
     return jwToken;
 };
 
-const createUser = async ({  email, name, password, role }) => {
+const createUser = async ({ email, name, password, role = 'customer' }) => {
     const existEmail = await User.findOne({ where: { email } });
     if (existEmail) throw httpException('Email exist in DB!', 409);
 
     const existName = await User.findOne({ where: { name } });
     if (existName) throw httpException('Name exist in DB!', 409);
 
-    const userCreate = await User.create({ name, email, password: md5(password), role })
+    const userCreate = await User.create({ name, email, password: md5(password), role });
 
     return userCreate;
 };
-//Comentário
 
 module.exports = {
     userLogin,
