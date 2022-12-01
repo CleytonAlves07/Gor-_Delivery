@@ -2,7 +2,8 @@ const serviceUser = require('../services/serviceUser');
 
 const userLogin = async (request, response) => {
     try {
-        const userInfo = await serviceUser.userLogin(request.body.email);
+        const { email, password } = request.body
+        const userInfo = await serviceUser.userLogin(email, password);
 
         if (!userInfo) {
         return response.status(404)
@@ -16,6 +17,17 @@ const userLogin = async (request, response) => {
     }
 };
 
+const userCreate = async (request, response) => {
+    try {
+        const { email, name, password, role } = request.body;
+        const createUserController = await serviceUser.createUser({ email, name, password, role });
+        return response.status(201).json(createUserController);
+    } catch (error) {
+        return response.status(409).json({ message: error.message });
+    }
+}
+
 module.exports = {
     userLogin,
+    userCreate,
 };
