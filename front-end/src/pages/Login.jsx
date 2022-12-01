@@ -25,10 +25,11 @@ function Login() {
     event.preventDefault();
 
     try {
-      const { getToken } = await requestLogin('/login', { email, password });
+      const { userInfo, getToken } = await requestLogin('/login', { email, password });
       setToken(getToken);
+      userInfo.getToken = getToken;
 
-      localStorage.setItem('token', getToken);
+      localStorage.setItem('token', JSON.stringify(userInfo));
 
       setWrongLogin(false);
 

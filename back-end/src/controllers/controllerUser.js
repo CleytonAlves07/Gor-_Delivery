@@ -9,8 +9,8 @@ const userLogin = async (request, response) => {
         .json({ message: 'Some required fields are missing' }); 
 }
 
-        const getToken = await serviceUser.generateToken(request.body);
-        return response.status(200).json({ userInfo, getToken });
+        const token = await serviceUser.generateToken(request.body);
+        return response.status(200).json({ userInfo, token });
     } catch (error) {
         return response.status(404).json({ message: error.message });
     }
