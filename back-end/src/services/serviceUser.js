@@ -1,40 +1,26 @@
-const { User } = require("../database/models")
-const md5 = require('md5')
-const fs = require('fs')
-const jwt = require('jsonwebtoken')
-
+const fs = require('fs');
+const jwt = require('jsonwebtoken');
+const { User } = require('../database/models');
 const jwtConfig = {
     expiresIn: '7d',
-    algorithm: 'HS256'
+    algorithm: 'HS256',
 };
-
-const userLogin = async(email) => {
-    const userInfo = await User.findOne({ 
-        where: { email }, 
+const userLogin = async (email) => {
+    const userInfo = await User.findOne({
+        where: { email },
         attributes: {
-            exclude: ['password']
-        }
-    })
-    
-    return userInfo
-}
-
-
+            exclude: ['password'],
+        },
+    });
+    return userInfo;
+};
 const generateToken = async ({ email, password }) => {
-    const secret = fs.readFileSync('./jwt.evaluation.key', { encoding: 'utf8' })
-    const payload = { email, password }
+    const secret = fs.readFileSync('./jwt.evaluation.key', { encoding: 'utf8' });
+    const payload = { email, password };
     const jwToken = jwt.sign(payload, secret, jwtConfig);
-
     return jwToken;
-}
-
-const jwTokenVerify = (token) => {
-    const jwtDecoded = jwt.verify(token, pass);
-    return jwtDecoded
-}
-
+};
 module.exports = {
     userLogin,
     generateToken,
-    jwTokenVerify,
-}
+};
