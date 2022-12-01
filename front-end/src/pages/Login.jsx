@@ -38,6 +38,12 @@ function Login() {
     }
   };
 
+  const handleClickRegister = async (event) => {
+    event.preventDefault();
+
+    push('/register');
+  };
+
   return (
     <form>
       <h1>BeerPoint</h1>
@@ -79,6 +85,7 @@ function Login() {
       <button
         data-testid="common_login__button-register"
         type="submit"
+        onClick={ (event) => handleClickRegister(event) }
       >
         Registrar
       </button>
