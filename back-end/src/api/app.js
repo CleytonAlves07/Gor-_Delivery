@@ -1,8 +1,10 @@
 const express = require('express');
-const routerLogin = require('../routes/routerLogin')
+const cors = require('cors');
+const routerLogin = require('../routes/routerLogin');
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 app.use(routerLogin);
 

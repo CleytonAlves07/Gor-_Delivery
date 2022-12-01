@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { requestLogin, setToken } from '../services/requests';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [wrongLogin, setWrongLogin] = useState(false);
+  const { push } = useHistory();
 
   const validEmail = () => {
     const regex = /\S+@\S+\.\S+/;
@@ -16,6 +20,23 @@ function Login() {
 
     return emailValid && passwordValid;
   }
+
+  const handleClickLogin = async (event) => {
+    event.preventDefault();
+
+    try {
+      const { getToken } = await requestLogin('/login', { email, password });
+      setToken(getToken);
+
+      localStorage.setItem('token', getToken);
+
+      setWrongLogin(false);
+
+      push('/customer/products');
+    } catch (error) {
+      setWrongLogin(true);
+    }
+  };
 
   return (
     <form>
@@ -42,10 +63,16 @@ function Login() {
           onChange={ (event) => setPassword(event.target.value) }
         />
       </label>
+      { wrongLogin ? (
+        <p data-testid="common_login__element-invalid-email">
+          Email ou senha incorretos.
+        </p>
+      ) : null }
       <button
         data-testid="common_login__button-login"
         type="submit"
         disabled={ !validLogin() }
+        onClick={ (event) => handleClickLogin(event) }
       >
         Entrar
       </button>
