@@ -1,5 +1,4 @@
 const serviceUser = require('../services/serviceUser');
-
 const userLogin = async (request, response) => {
     try {
         const userInfo = await serviceUser.userLogin(request.body.email);
@@ -10,7 +9,6 @@ const userLogin = async (request, response) => {
 }
 
         const getToken = await serviceUser.generateToken(request.body);
-
         return response.status(200).json({ userInfo, getToken });
     } catch (error) {
         return response.status(404).json({ message: error.message });

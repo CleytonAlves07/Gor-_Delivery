@@ -8,12 +8,13 @@ const jwtConfig = {
 };
 
 const userLogin = async (email) => {
-    const userInfo = await User.findOne({ 
-        where: { email }, 
+    const userInfo = await User.findOne({
+        where: { email },
         attributes: {
             exclude: ['password'],
         },
     });
+
     
     return userInfo;
 };
@@ -22,7 +23,6 @@ const generateToken = async ({ email, password }) => {
     const secret = fs.readFileSync('./jwt.evaluation.key', { encoding: 'utf8' });
     const payload = { email, password };
     const jwToken = jwt.sign(payload, secret, jwtConfig);
-
     return jwToken;
 };
 
