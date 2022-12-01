@@ -8,7 +8,7 @@ const userLogin = async (request, response) => {
         return response.status(404)
         .json({ message: 'Some required fields are missing' }); 
 }
-
+        // token
         const token = await serviceUser.generateToken(request.body);
         return response.status(200).json({ userInfo, token });
     } catch (error) {
