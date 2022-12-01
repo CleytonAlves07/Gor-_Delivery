@@ -2,7 +2,7 @@ const serviceUser = require('../services/serviceUser');
 
 const userLogin = async (request, response) => {
     try {
-        const { email, password } = request.body
+        const { email, password } = request.body;
         const userInfo = await serviceUser.userLogin(email, password);
 
         if (!userInfo) {
@@ -25,7 +25,7 @@ const userCreate = async (request, response) => {
     } catch (error) {
         return response.status(409).json({ message: error.message });
     }
-}
+};
 
 module.exports = {
     userLogin,

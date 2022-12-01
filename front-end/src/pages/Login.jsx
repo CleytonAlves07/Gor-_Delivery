@@ -25,9 +25,9 @@ function Login() {
     event.preventDefault();
 
     try {
-      const { userInfo, getToken } = await requestLogin('/login', { email, password });
-      setToken(getToken);
-      userInfo.getToken = getToken;
+      const { userInfo, token } = await requestLogin('/login', { email, password });
+      setToken(token);
+      userInfo.token = token;
 
       localStorage.setItem('token', JSON.stringify(userInfo));
 

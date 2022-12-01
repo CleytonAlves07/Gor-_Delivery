@@ -33,9 +33,11 @@ function Register() {
   const handleClick = async (event) => {
     event.preventDefault();
     try {
-      const register = await requestLogin('/register', { email, password });
+      const register = await requestLogin('/register', { name, email, password });
       setUser(register);
+
       localStorage.setItem('user', JSON.stringify(register));
+
       setPersonalDataWrong(false);
 
       push('/customer/products');
