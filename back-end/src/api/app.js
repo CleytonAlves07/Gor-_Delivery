@@ -7,6 +7,7 @@ const routerProducts = require('../routes/routerProducts');
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use(express.static('public'));
 
 app.use(routerLogin);
 app.use(routerProducts);
