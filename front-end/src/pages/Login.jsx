@@ -29,7 +29,7 @@ function Login() {
       setToken(token);
       userInfo.token = token;
 
-      localStorage.setItem('token', JSON.stringify(userInfo));
+      localStorage.setItem('user', JSON.stringify(userInfo));
 
       setWrongLogin(false);
 
