@@ -5,6 +5,14 @@ function Card({ id, productImg, productName, productPrice }) {
   const [quantity, setQuantity] = useState(0);
   const px = '70px';
 
+  const decrementProduct = () => {
+    setQuantity((pState) => pState - 1);
+  };
+
+  const incrementProduct = () => {
+    setQuantity((pState) => pState + 1);
+  };
+
   return (
     <div>
       <p
@@ -28,6 +36,7 @@ function Card({ id, productImg, productName, productPrice }) {
       <button
         data-testid={ `customer_products__button-card-rm-item-${id}` }
         type="button"
+        onClick={ decrementProduct }
       >
         -
       </button>
@@ -39,6 +48,7 @@ function Card({ id, productImg, productName, productPrice }) {
       <button
         data-testid={ `customer_products__button-card-add-item-${id}` }
         type="button"
+        onClick={ incrementProduct }
       >
         +
       </button>
