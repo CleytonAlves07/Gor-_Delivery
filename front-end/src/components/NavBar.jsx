@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import getUserLogged from '../services/localStorage';
+import { getUserLogged } from '../services/localStorage';
 
 function NavBar() {
   const { push } = useHistory();
