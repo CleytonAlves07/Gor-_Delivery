@@ -3,7 +3,7 @@ const cors = require('cors');
 const errorMiddleware = require('../middleware/errorMiddleware');
 const routerLogin = require('../routes/routerLogin');
 const routerProducts = require('../routes/routerProducts');
-const routerOrders = require('../routes/routerOrders')
+const routerOrders = require('../routes/routerOrders');
 
 const app = express();
 app.use(express.json());

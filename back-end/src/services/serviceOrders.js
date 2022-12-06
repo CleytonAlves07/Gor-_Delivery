@@ -11,8 +11,10 @@ const getAllOrders = async () => {
   return orders;
 };
 
-const orderCreate = async ({ userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate, status }) => {
-  const createOrder = await Sale.create({ userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate, status });
+const orderCreate = async ({ 
+  userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate, status }) => {
+  const createOrder = await Sale.create({ 
+    userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate, status });
   return createOrder;
 };
 
