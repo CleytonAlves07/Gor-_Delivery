@@ -21,8 +21,15 @@ const getAllOrders = async (_request, response) => {
 
 const orderCreate = async (request, response) => {
   try {
-      const { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate, status } = request.body;
-      const orderCreateController = await serviceOrders.orderCreate({ userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate, status });
+      const { userId, 
+        sellerId, 
+        totalPrice, 
+        deliveryAddress, 
+        deliveryNumber, 
+        saleDate, 
+        status } = request.body;
+      const orderCreateController = await serviceOrders.orderCreate({ 
+        userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate, status });
       return response.status(201).json(orderCreateController);
   } catch (error) {
       return response.status(400).json({ message: error.message });
