@@ -1,6 +1,7 @@
 import React from 'react';
 import NavBar from '../components/NavBar';
 import CardCheckout from '../components/CardCheckout';
+import ClientDetails from '../components/ClientDetails';
 
 function Checkout() {
   return (
@@ -10,20 +11,24 @@ function Checkout() {
       <p>
         Finalizar Pedido
       </p>
-      <p>
-        Detalhes e Endereço para Entrega
-      </p>
       <div>
 
         <CardCheckout />
 
       </div>
-      <button
-        data-testid="customer_checkout__button-submit-order"
-        type="button"
-      >
-        Cadastrar
-      </button>
+      <div>
+        <p>
+          Detalhes e Endereço para Entrega
+        </p>
+        <ClientDetails />
+        <button
+          type="submit"
+          data-testid="customer_checkout__button-submit-order"
+        >
+          FINALIZAR PEDIDO
+        </button>
+      </div>
+
     </div>
   );
 }

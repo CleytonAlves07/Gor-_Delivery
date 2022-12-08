@@ -6,7 +6,6 @@ function CardCheckout() {
   const { cart, setCart } = useContext(ContextDelivery);
 
   const removeProduct = (p) => {
-    console.log('esse é o cart:', cart);
     const haveProd = cart.filter((prod) => prod.id !== p.id);
     setCart([...haveProd]);
     localStorage.setItem('deliveryCart', JSON.stringify(haveProd));
