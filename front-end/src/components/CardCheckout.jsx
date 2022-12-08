@@ -6,7 +6,6 @@ function CardCheckout() {
   const { cart, setCart } = useContext(ContextDelivery);
 
   const removeProduct = (p) => {
-    console.log('esse é o cart:', cart);
     const haveProd = cart.filter((prod) => prod.id !== p.id);
     setCart([...haveProd]);
     localStorage.setItem('deliveryCart', JSON.stringify(haveProd));
@@ -88,8 +87,7 @@ function CardCheckout() {
       >
         {`Total: ${cart
           .reduce((acc, curr) => acc + Number(curr.totalValues), 0)
-          .toFixed(2)
-          .replace('.', ',')}`}
+          .toFixed(2).replace('.', ',')}`}
 
       </div>
     </div>
