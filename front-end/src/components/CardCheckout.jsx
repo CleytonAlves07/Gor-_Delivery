@@ -1,63 +1,97 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import ContextDelivery from '../context/Context';
 
-function CardCheckout({ id, productName, productPrice }) {
-  const [quantity, setQuantity] = useState(0);
+function CardCheckout() {
   const { cart, setCart } = useContext(ContextDelivery);
 
-  const removeProduct = () => {
-    const haveProd = cart.filter((product) => product.id !== id);
+  const removeProduct = (p) => {
+    console.log('esse é o cart:', cart);
+    const haveProd = cart.filter((prod) => prod.id !== p.id);
     setCart([...haveProd]);
+    localStorage.setItem('deliveryCart', JSON.stringify(haveProd));
   };
-
-  useEffect(() => {
-    localStorage.setItem('deliveryCart', JSON.stringify(cart));
-  }, [cart]);
-
-  useEffect(() => {
-    if (!JSON.parse(localStorage.getItem('deliveryCart'))) {
-      setCart([]);
-    } else {
-      setCart(JSON.parse(localStorage.getItem('deliveryCart')));
-      const qttyProduct = JSON.parse(localStorage.getItem('deliveryCart'))
-        .find((p) => id === p.id);
-      if (qttyProduct) {
-        setQuantity(qttyProduct.quantity);
-      }
-    }
-  }, []);
 
   return (
     <div>
-      <p
-        data-testid={ `customer_products__element-card-price-${id}` }
-        key={ id }
-      >
-        {`R$ ${productPrice.replace('.', ',')}`}
-      </p>
-      <p
-        data-testid={ `customer_products__element-card-title-${id}` }
-      >
-        {productName}
-      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Descrição</th>
+            <th>Quantidade</th>
+            <th>Valor Unitário</th>
+            <th>Sub-total</th>
+            <th>Remover Item</th>
+          </tr>
+        </thead>
+        <tbody>
+          {cart?.map((p, i) => (
+            <tr key={ i }>
+              <td
+                data-testid={
+                  `customer_checkout__element-order-table-item-number-${i}`
+                }
+              >
+                {i + 1}
+
+              </td>
+              <td
+                data-testid={
+                  `customer_checkout__element-order-table-name-${i}`
+                }
+              >
+                {p.name}
+              </td>
+              <td
+                data-testid={
+                  `customer_checkout__element-order-table-quantity-${i}`
+                }
+              >
+                {p.quantity}
+              </td>
+              <td
+                data-testid={
+                  `customer_checkout__element-order-table-unit-price-${i}`
+                }
+              >
+                {`R$ ${p.price.replace('.', ',')}`}
+
+              </td>
+              <td
+                data-testid={
+                  `customer_checkout__element-order-table-sub-total-${i}`
+                }
+              >
+                {p.totalValues.replace('.', ',')}
+
+              </td>
+              <td
+                data-testid={
+                  `customer_checkout__element-order-table-remove-${i}`
+                }
+              >
+                <button
+                  onClick={ () => removeProduct(p) }
+                  type="button"
+                >
+                  Remove
+
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
       <div
-        // data-testid={ `customer_products__input-card-quantity-${id}` }
-        id={ productPrice }
-        name={ productName }
-        value={ quantity }
-        type="text"
+        data-testid="customer_checkout__element-order-total-price"
       >
-        {quantity}
+        {`Total: ${cart
+          .reduce((acc, curr) => acc + Number(curr.totalValues), 0)
+          .toFixed(2)
+          .replace('.', ',')}`}
 
       </div>
-      <button
-        onClick={ () => removeProduct() }
-        type="button"
-      >
-        Remove
-
-      </button>
     </div>
   );
 }
@@ -67,6 +101,7 @@ CardCheckout.propTypes = {
   productImg: PropTypes.string,
   productName: PropTypes.string,
   productPrice: PropTypes.string,
+  quantity: PropTypes.number,
   i: PropTypes.number,
 }.isRequired;
 
