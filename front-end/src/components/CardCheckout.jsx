@@ -87,8 +87,7 @@ function CardCheckout() {
       >
         {`Total: ${cart
           .reduce((acc, curr) => acc + Number(curr.totalValues), 0)
-          .toFixed(2)
-          .replace('.', ',')}`}
+          .toFixed(2).replace('.', ',')}`}
 
       </div>
     </div>
