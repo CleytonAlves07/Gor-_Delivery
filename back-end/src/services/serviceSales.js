@@ -1,6 +1,5 @@
 const { Sale } = require('../database/models');
 
-
 const getSaleById = async (id) => {
   const sale = await Sale.findByPk(id);
   return sale;
