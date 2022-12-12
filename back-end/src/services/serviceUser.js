@@ -9,12 +9,12 @@ const jwtConfig = {
     algorithm: 'HS256',
 };
 
-const userLogin = async (email, password) => {
+const userLogin = async ( email, password) => {
     const userCrypt = md5(password);
     const userInfo = await User.findOne({
         where: { email, password: userCrypt },
         attributes: {
-            exclude: ['password', 'id'],
+            exclude: ['password'],
         },
     });
     

@@ -30,9 +30,7 @@ function Login() {
       userInfo.token = token;
 
       localStorage.setItem('user', JSON.stringify(userInfo));
-
       setWrongLogin(false);
-
       push('/customer/products');
     } catch (error) {
       setWrongLogin(true);
