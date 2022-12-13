@@ -7,7 +7,7 @@ const getSaleById = async (id) => {
 
 const getSaleBySeller = async (id) => {
   const sale = await Sale
-  .findOne({ where: { id }, include: { model: User, as: 'seller_id', attributes: ['name']}});
+  .findOne({ where: { id }, include: { model: User, as: 'seller_id', attributes: ['name'] } });
   return sale;
 }
 
