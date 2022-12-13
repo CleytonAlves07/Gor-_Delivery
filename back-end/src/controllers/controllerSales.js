@@ -3,7 +3,7 @@ const serviceSales = require('../services/serviceSales');
 const getSaleById = async (request, response) => {
   try {
     const { id } = request.params;
-    const sale = await serviceSales.getSaleById(id);
+    const sale = await serviceSales.getSaleBySeller(id);
     return response.status(200).json(sale);
   } catch (error) {
       return response.status(404).json({ message: error.message });

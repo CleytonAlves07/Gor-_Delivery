@@ -1,16 +1,53 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
+import moment from 'moment';
+import { useParams } from 'react-router-dom';
+import api from '../services/requests';
 import NavBar from '../components/NavBar';
 import ContextDelivery from '../context/Context';
 
 function Orders() {
-  const { cart } = useContext(ContextDelivery);
+  const { cart, setOrderDetail, orderDetail } = useContext(ContextDelivery);
+  const { id } = useParams();
+
+  const ordersId = async () => {
+    const orders = await api.get(
+      `/sales/${id}`,
+    );
+    setOrderDetail(orders.data);
+  };
+
+  useEffect(() => {
+    ordersId();
+  }, []);
+
+  useEffect(() => {
+    console.log(orderDetail);
+  }, [orderDetail]);
+
+  const data = moment(orderDetail.saleDate).format('DD/MM/YYYY');
+  const totalPrice = orderDetail.totalPrice?.replace('.', ',');
+
   return (
     <div>
       <NavBar />
       <h1>Detalhes do Pedido</h1>
       <div>
-        <h3>Pedido  007</h3>
-        <h5>P Vend:</h5>
+        <h3>
+          Pedido:
+          {orderDetail.id}
+        </h3>
+        <h5>
+          P Vend:
+          {orderDetail.seller_id?.name}
+        </h5>
+        <div>
+          Status:
+          { orderDetail.status }
+        </div>
+        <div>
+          Data Venda:
+          { data }
+        </div>
         <button type="button">MARCAR COMO ENTREGUE</button>
       </div>
       <table>
@@ -71,10 +108,8 @@ function Orders() {
       <div
         data-testid="customer_checkout__element-order-total-price"
       >
-        {`Total: ${cart
-          .reduce((acc, curr) => acc + Number(curr.totalValues), 0)
-          .toFixed(2).replace('.', ',')}`}
-
+        Total:
+        { totalPrice }
       </div>
     </div>
   );
