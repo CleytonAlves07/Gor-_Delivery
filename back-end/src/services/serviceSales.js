@@ -9,7 +9,7 @@ const getSaleBySeller = async (id) => {
   const sale = await Sale
   .findOne({ where: { id }, include: { model: User, as: 'seller_id', attributes: ['name'] } });
   return sale;
-}
+};
 
 const getAllSales = async () => {
   const sales = await Sale.findAll();
