@@ -23,4 +23,9 @@ export const createSales = async (endpoint, body) => {
   return data;
 };
 
+export const getAllSellers = async (token) => {
+  const data = await api.get('/sellers', { headers: { Authorization: token } });
+  return data.data;
+};
+
 export default api;

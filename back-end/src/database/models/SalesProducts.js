@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
         productId: DataTypes.INTEGER,
         quantity: DataTypes.INTEGER,
     }, {
-        tableName: 'salesProducts',
+        tableName: 'sales_products',
         timestamps: false,
         underscored: true,
     });

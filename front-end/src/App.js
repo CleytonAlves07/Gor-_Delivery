@@ -16,7 +16,7 @@ export default function App() {
       <Route path="/register" component={ Register } />
       <Route path="/customer/products" component={ Product } />
       <Route path="/customer/checkout" component={ Checkout } />
-      <Route path="/customer/orders" component={ Orders } />
+      <Route path="/customer/orders/:id" component={ Orders } />
     </Switch>
   );
 }
