@@ -1,9 +1,14 @@
-const { Sale } = require('../database/models');
+const { Sale, User } = require('../database/models');
 
 const getSaleById = async (id) => {
   const sale = await Sale.findByPk(id);
   return sale;
 };
+
+const getSaleBySeller = async (id) => {
+  const sale = await Sale.findOne({ where: { id }, include: { model: User, as: 'seller_id', attributes: ['name']}});
+  return sale;
+}
 
 const getAllSales = async () => {
   const sales = await Sale.findAll();
@@ -17,4 +22,4 @@ const saleCreate = async ({
   return createSales;
 };
 
-module.exports = { getAllSales, getSaleById, saleCreate };
+module.exports = { getAllSales, getSaleById, saleCreate, getSaleBySeller };

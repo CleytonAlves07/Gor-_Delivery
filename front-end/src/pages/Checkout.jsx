@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import api from '../services/requests';
+import React from 'react';
 // import { useHistory } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import CardCheckout from '../components/CardCheckout';
@@ -8,23 +6,23 @@ import ClientDetails from '../components/ClientDetails';
 // import { createSales } from '../services/requests';
 
 function Checkout() {
-  const [orderDetail, setOrderDetail] = useState([]);
-  const { id } = useParams();
+  // const [orderDetail, setOrderDetail] = useState([]);
+  // const { id } = useParams();
 
-  const ordersId = async () => {
-    const orders = await api.get(
-      `/sales/${id}`,
-    );
-    setOrderDetail(orders);
-  };
+  // const ordersId = async () => {
+  //   const orders = await api.get(
+  //     `/sales/${id}`,
+  //   );
+  //   setOrderDetail(orders);
+  // };
 
-  useEffect(() => {
-    ordersId();
-  }, []);
+  // useEffect(() => {
+  //   ordersId();
+  // }, []);
 
-  useEffect(() => {
-    console.log(orderDetail);
-  }, [orderDetail]);
+  // useEffect(() => {
+  //   console.log(orderDetail);
+  // }, [orderDetail]);
 
   // const { wrongSales, setWrongSales } = useState(false);
   // const [clientInfo, setClientInfo] = useState([]);
