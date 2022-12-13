@@ -4,7 +4,6 @@ const userLogin = async (request, response) => {
     try {
         const { email, password } = request.body;
         const userInfo = await serviceUser.userLogin(email, password);
-
         if (!userInfo) {
         return response.status(404)
         .json({ message: 'Some required fields are missing' }); 
@@ -16,7 +15,6 @@ const userLogin = async (request, response) => {
         return response.status(404).json({ message: error.message });
     }
 };
-
 const userCreate = async (request, response) => {
     try {
         const { email, name, password, role } = request.body;
@@ -26,8 +24,16 @@ const userCreate = async (request, response) => {
         return response.status(409).json({ message: error.message });
     }
 };
-
+const getAllSellers = async (request, response) => {
+    try {
+        const getSellersController = await serviceUser.getAllSellers({});
+        return response.status(200).json(getSellersController);
+    } catch (error) {
+        return response.status(409).json({ message: error.message });
+    }
+};
 module.exports = {
     userLogin,
     userCreate,
+    getAllSellers,
 };
