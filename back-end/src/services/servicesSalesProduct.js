@@ -14,9 +14,10 @@ const getSaleProductWithId = async (id) => {
     const saleProduct = await Sale.findAll({
         where: { id },
         include: {
-            model: Product, as: 'product',
+            model: Product,
+            as: 'product',
             attributes: ['name', 'price'],
-            through: { attributes: ['quantity']}
+            through: { attributes: ['quantity'] },
         }
     });
     return saleProduct;

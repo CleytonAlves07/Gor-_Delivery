@@ -33,6 +33,7 @@ function Login() {
       setWrongLogin(false);
       push('/customer/products');
     } catch (error) {
+      console.log('O Error é :', error);
       setWrongLogin(true);
     }
   };
