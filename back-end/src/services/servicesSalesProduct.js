@@ -18,7 +18,7 @@ const getSaleProductWithId = async (id) => {
             as: 'product',
             attributes: ['name', 'price'],
             through: { attributes: ['quantity'] },
-        }
+        },
     });
     return saleProduct;
 };
