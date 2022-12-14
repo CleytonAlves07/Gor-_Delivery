@@ -1,52 +1,9 @@
 import React from 'react';
-// import { useHistory } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import CardCheckout from '../components/CardCheckout';
 import ClientDetails from '../components/ClientDetails';
-// import { createSales } from '../services/requests';
 
 function Checkout() {
-  // const [orderDetail, setOrderDetail] = useState([]);
-  // const { id } = useParams();
-
-  // const ordersId = async () => {
-  //   const orders = await api.get(
-  //     `/sales/${id}`,
-  //   );
-  //   setOrderDetail(orders);
-  // };
-
-  // useEffect(() => {
-  //   ordersId();
-  // }, []);
-
-  // useEffect(() => {
-  //   console.log(orderDetail);
-  // }, [orderDetail]);
-
-  // const { wrongSales, setWrongSales } = useState(false);
-  // const [clientInfo, setClientInfo] = useState([]);
-  // const { push } = useHistory();
-  // const { id, name } = JSON.parse(localStorage.getItem('user'));
-
-  // const handleClick = async (event) => {
-  //   event.preventDefault();
-  //   try {
-  //     await createSales('/sales', {
-  //       id,
-  //       name,
-  //       totalPrice,
-  //       deliveryAddress,
-  //       deliveryNumber,
-  //       saleDate,
-  //     });
-
-  //     // setWrongSales(false);
-  //   } catch (error) {
-  //     // setWrongSales(true);
-  //   }
-  //   push('/customer/orders');
-  // };
   return (
     <div>
       <NavBar />

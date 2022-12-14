@@ -6,7 +6,12 @@ import NavBar from '../components/NavBar';
 import ContextDelivery from '../context/Context';
 
 function Orders() {
-  const { cart, setOrderDetail, orderDetail } = useContext(ContextDelivery);
+  const {
+    setOrderDetail,
+    orderDetail,
+    setsaleProducts,
+    saleProducts,
+  } = useContext(ContextDelivery);
   const { id } = useParams();
 
   const ordersId = async () => {
@@ -20,35 +25,55 @@ function Orders() {
     ordersId();
   }, []);
 
+  const saleProductId = async () => {
+    const saleproduct = await api
+      .get(`/sales_product/${id}`);
+    setsaleProducts(saleproduct.data);
+  };
   useEffect(() => {
-    console.log(orderDetail);
-  }, [orderDetail]);
+    saleProductId();
+  }, []);
 
   const data = moment(orderDetail.saleDate).format('DD/MM/YYYY');
   const totalPrice = orderDetail.totalPrice?.replace('.', ',');
+  const arraySale = saleProducts[0]?.product;
+  const dataTest = 'customer_order_details__element-order-details-label-delivery-status';
 
   return (
-    <div>
+    <section>
       <NavBar />
       <h1>Detalhes do Pedido</h1>
       <div>
-        <h3>
+        <h3
+          data-testid="customer_order_details__element-order-details-label-order-id"
+        >
           Pedido:
           {orderDetail.id}
         </h3>
-        <h5>
+        <h5
+          data-testid="customer_order_details__element-order-details-label-seller-name"
+        >
           P Vend:
           {orderDetail.seller_id?.name}
         </h5>
-        <div>
+        <div
+          data-testid={ dataTest }
+        >
           Status:
           { orderDetail.status }
         </div>
-        <div>
+        <div
+          data-testid="customer_order_details__element-order-details-label-order-date"
+        >
           Data Venda:
           { data }
         </div>
-        <button type="button">MARCAR COMO ENTREGUE</button>
+        <button
+          type="button"
+          data-testid="customer_order_details__button-delivery-check"
+        >
+          MARCAR COMO ENTREGUE
+        </button>
       </div>
       <table>
         <thead>
@@ -61,57 +86,58 @@ function Orders() {
           </tr>
         </thead>
         <tbody>
-          {cart?.map((p, i) => (
+          {arraySale?.map((p, i) => (
             <tr key={ i }>
               <td
                 data-testid={
-                  `customer_checkout__element-order-table-item-number-${i}`
+                  `customer_order_details__element-order-table-item-number-${i}`
                 }
               >
                 {i + 1}
-
               </td>
               <td
                 data-testid={
-                  `customer_checkout__element-order-table-name-${i}`
+                  `customer_order_details__element-order-table-name-${i}`
                 }
               >
                 {p.name}
-              </td>
-              <td
-                data-testid={
-                  `customer_checkout__element-order-table-quantity-${i}`
-                }
-              >
-                {p.quantity}
-              </td>
-              <td
-                data-testid={
-                  `customer_checkout__element-order-table-unit-price-${i}`
-                }
-              >
-                {`R$ ${p.price.replace('.', ',')}`}
 
               </td>
               <td
                 data-testid={
-                  `customer_checkout__element-order-table-sub-total-${i}`
+                  `customer_order_details__element-order-table-quantity-${i}`
                 }
               >
-                {p.totalValues.replace('.', ',')}
+                {p.SaleProduct.quantity}
+              </td>
+              <td
+                data-testid={
+                  `customer_order_details__element-order-table-unit-price-${i}`
+                }
+              >
+                {(p.price).replace('.', ',')}
 
+              </td>
+              <td
+                data-testid={
+                  `customer_order_details__element-order-table-sub-total-${i}`
+                }
+              >
+                {(p.SaleProduct.quantity * p.price)
+                  .toFixed(2)
+                  .replace('.', ',')}
               </td>
             </tr>
           ))}
         </tbody>
       </table>
       <div
-        data-testid="customer_checkout__element-order-total-price"
+        data-testid="customer_order_details__element-order-total-price"
       >
         Total:
         { totalPrice }
       </div>
-    </div>
+    </section>
   );
 }
 
