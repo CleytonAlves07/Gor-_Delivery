@@ -39,6 +39,34 @@ const saleCreate = async ({
   return createSales;
 };
 
+const updateSaleToPreparing = async (id, status) => {
+  if (await status === 'Pendente') {
+    await Sale.update({ status: 'Preparando' }, { where: { id } });
+  }
+  if (await status === 'Preparando') {
+    await Sale.update({ status: 'Em Trânsito' }, { where: { id } });
+  }
+  if (await status === 'Em Trânsito') {
+    await Sale.update({ status: 'Pendente' }, { where: { id } });
+  }
+};
+
+const updtSale = async (id, rbody) => {
+  const { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate, status } = rbody;
+
+  await Sale.update(
+    { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate, status },
+    { where: { id } },
+  );
+
+  return { id, ...rbody };
+};
+
+const verifySaleStatus = async (id) => {
+  const status = await Sale.findOne({ where: { id } });
+  return status.dataValues.status;
+};
+
 module.exports = { 
   getAllSales, 
   getSaleById, 
@@ -46,4 +74,8 @@ module.exports = {
   getSaleBySeller, 
   getAllSalesByUserId, 
   getAllSalesBySellerId,
+  updateSaleToPreparing,
+  verifySaleStatus,
+  updtSale,
+  // updateSaleToDelivering,
 };

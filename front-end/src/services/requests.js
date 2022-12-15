@@ -38,4 +38,18 @@ export const getOrdersSellerById = async (token) => {
   return data;
 };
 
+export const getOrderSellerDetails = async (token) => {
+  const data = await api.get('/sales/seller', { headers: { Authorization: token } });
+  return data;
+};
+
+export const updtSale = async (token, id, updateSale) => {
+  const data = await api.put(
+    `/sales/${id}`,
+    { ...updateSale },
+    { headers: { Authorization: token } },
+  );
+  return data;
+};
+
 export default api;

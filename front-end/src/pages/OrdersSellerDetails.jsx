@@ -1,12 +1,12 @@
 import React, { useContext, useEffect } from 'react';
-import moment from 'moment';
 import { useParams } from 'react-router-dom';
-import api, { updtSale } from '../services/requests';
+import moment from 'moment';
 import NavBar from '../components/NavBar';
+import api, { updtSale } from '../services/requests';
 import ContextDelivery from '../context/Context';
 import { getUserLogged } from '../services/localStorage';
 
-function OrdersDetails() {
+function OrdersSellerDetails() {
   const {
     setOrderDetail,
     orderDetail,
@@ -24,6 +24,7 @@ function OrdersDetails() {
 
   useEffect(() => {
     ordersId();
+    console.log(orderDetail);
   }, []);
 
   const saleProductId = async () => {
@@ -35,7 +36,7 @@ function OrdersDetails() {
     saleProductId();
   }, []);
 
-  const handleDelivered = async () => {
+  const handlePreparing = async () => {
     const { token } = getUserLogged();
     const { userId, sellerId, totalPrice, deliveryAddress,
       deliveryNumber, saleDate } = orderDetail;
@@ -46,7 +47,25 @@ function OrdersDetails() {
       deliveryAddress,
       deliveryNumber,
       saleDate,
-      status: 'Entregue',
+      status: 'Preparando',
+    };
+    const newUpdt = { ...updtObj };
+    await updtSale(token, id, newUpdt);
+    ordersId();
+  };
+
+  const handleTransit = async () => {
+    const { token } = getUserLogged();
+    const { userId, sellerId, totalPrice, deliveryAddress,
+      deliveryNumber, saleDate } = orderDetail;
+    const updtObj = {
+      userId,
+      sellerId,
+      totalPrice,
+      deliveryAddress,
+      deliveryNumber,
+      saleDate,
+      status: 'Em Trânsito',
     };
     const newUpdt = { ...updtObj };
     await updtSale(token, id, newUpdt);
@@ -56,7 +75,7 @@ function OrdersDetails() {
   const data = moment(orderDetail.saleDate).format('DD/MM/YYYY');
   const totalPrice = orderDetail.totalPrice?.replace('.', ',');
   const arraySale = saleProducts[0]?.product;
-  const dataTest = 'customer_order_details__element-order-details-label-delivery-status';
+  const dataTest = 'seller_order_details__element-order-details-label-delivery-status';
 
   return (
     <section>
@@ -64,17 +83,11 @@ function OrdersDetails() {
       <h1>Detalhes do Pedido</h1>
       <div>
         <h3
-          data-testid="customer_order_details__element-order-details-label-order-id"
+          data-testid="seller_order_details__element-order-details-label-order-id"
         >
           Pedido:
           {orderDetail.id}
         </h3>
-        <h5
-          data-testid="customer_order_details__element-order-details-label-seller-name"
-        >
-          P Vend:
-          {orderDetail.seller_id?.name}
-        </h5>
         <div
           data-testid={ dataTest }
         >
@@ -82,18 +95,26 @@ function OrdersDetails() {
           { orderDetail.status }
         </div>
         <div
-          data-testid="customer_order_details__element-order-details-label-order-date"
+          data-testid="seller_order_details__element-order-details-label-order-date"
         >
           Data Venda:
           { data }
         </div>
         <button
           type="button"
-          data-testid="customer_order_details__button-delivery-check"
-          onClick={ handleDelivered }
-          disabled={ orderDetail.status !== 'Em Trânsito' }
+          data-testid="seller_order_details__button-preparing-check"
+          onClick={ handlePreparing }
+          disabled={ orderDetail.status !== 'Pendente' }
         >
-          MARCAR COMO ENTREGUE
+          PREPARAR PEDIDO
+        </button>
+        <button
+          type="button"
+          data-testid="seller_order_details__button-dispatch-check"
+          onClick={ handleTransit }
+          disabled={ orderDetail.status !== 'Preparando' }
+        >
+          SAIU PARA ENTREGA
         </button>
       </div>
       <table>
@@ -111,14 +132,14 @@ function OrdersDetails() {
             <tr key={ i }>
               <td
                 data-testid={
-                  `customer_order_details__element-order-table-item-number-${i}`
+                  `seller_order_details__element-order-table-item-number-${i}`
                 }
               >
                 {i + 1}
               </td>
               <td
                 data-testid={
-                  `customer_order_details__element-order-table-name-${i}`
+                  `seller_order_details__element-order-table-name-${i}`
                 }
               >
                 {p.name}
@@ -126,14 +147,14 @@ function OrdersDetails() {
               </td>
               <td
                 data-testid={
-                  `customer_order_details__element-order-table-quantity-${i}`
+                  `seller_order_details__element-order-table-quantity-${i}`
                 }
               >
                 {p.SaleProduct.quantity}
               </td>
               <td
                 data-testid={
-                  `customer_order_details__element-order-table-unit-price-${i}`
+                  `seller_order_details__element-order-table-unit-price-${i}`
                 }
               >
                 {(p.price).replace('.', ',')}
@@ -141,7 +162,7 @@ function OrdersDetails() {
               </td>
               <td
                 data-testid={
-                  `customer_order_details__element-order-table-sub-total-${i}`
+                  `seller_order_details__element-order-table-sub-total-${i}`
                 }
               >
                 {(p.SaleProduct.quantity * p.price)
@@ -153,7 +174,7 @@ function OrdersDetails() {
         </tbody>
       </table>
       <div
-        data-testid="customer_order_details__element-order-total-price"
+        data-testid="seller_order_details__element-order-total-price"
       >
         Total:
         { totalPrice }
@@ -162,4 +183,4 @@ function OrdersDetails() {
   );
 }
 
-export default OrdersDetails;
+export default OrdersSellerDetails;
