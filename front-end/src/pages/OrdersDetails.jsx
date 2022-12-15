@@ -1,9 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 import moment from 'moment';
 import { useParams } from 'react-router-dom';
-import api from '../services/requests';
+import api, { updtSale } from '../services/requests';
 import NavBar from '../components/NavBar';
 import ContextDelivery from '../context/Context';
+import { getUserLogged } from '../services/localStorage';
 
 function OrdersDetails() {
   const {
@@ -33,6 +34,24 @@ function OrdersDetails() {
   useEffect(() => {
     saleProductId();
   }, []);
+
+  const handleDelivered = async () => {
+    const { token } = getUserLogged();
+    const { userId, sellerId, totalPrice, deliveryAddress,
+      deliveryNumber, saleDate } = orderDetail;
+    const updtObj = {
+      userId,
+      sellerId,
+      totalPrice,
+      deliveryAddress,
+      deliveryNumber,
+      saleDate,
+      status: 'Entregue',
+    };
+    const newUpdt = { ...updtObj };
+    await updtSale(token, id, newUpdt);
+    ordersId();
+  };
 
   const data = moment(orderDetail.saleDate).format('DD/MM/YYYY');
   const totalPrice = orderDetail.totalPrice?.replace('.', ',');
@@ -71,7 +90,8 @@ function OrdersDetails() {
         <button
           type="button"
           data-testid="customer_order_details__button-delivery-check"
-          disabled
+          onClick={ handleDelivered }
+          disabled={ orderDetail.status !== 'Em Trânsito' }
         >
           MARCAR COMO ENTREGUE
         </button>

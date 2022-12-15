@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import NavBar from '../components/NavBar';
 import { getOrdersUserById } from '../services/requests';
 import { getUserLogged } from '../services/localStorage';
 
@@ -22,6 +23,7 @@ function Orders() {
 
   return (
     <main>
+      <NavBar />
       <h1>PEDIDOS</h1>
       <div>
         {

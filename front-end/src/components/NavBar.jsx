@@ -5,20 +5,39 @@ import { getUserLogged } from '../services/localStorage';
 function NavBar() {
   const { push } = useHistory();
   const { name } = getUserLogged();
+  const userRole = JSON.parse(localStorage.getItem('user'));
 
   const handleClickProducts = async (event) => {
     event.preventDefault();
-    push('/customer/products');
+    if (userRole) {
+      if (userRole.role === 'seller') {
+        push('/seller/orders');
+      } else {
+        push('/customer/products');
+      }
+    }
   };
 
   const handleClickOrders = async (event) => {
     event.preventDefault();
-    push('/customer/orders');
+    if (userRole) {
+      if (userRole.role === 'seller') {
+        push('/seller/orders');
+      } else {
+        push('/customer/orders');
+      }
+    }
   };
 
   const handleClickProfile = async (event) => {
     event.preventDefault();
-    push('/profile');
+    if (userRole) {
+      if (userRole.role === 'seller') {
+        push('/seller/profile');
+      } else {
+        push('/customer/profile');
+      }
+    }
   };
 
   const handleClickLoggout = () => {
