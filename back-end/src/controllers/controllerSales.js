@@ -61,10 +61,22 @@ const getAllSalesBySellerId = async (request, response) => {
   }
 };
 
+const updateSaleToPreparing = async (request, response) => {
+  try {
+    const { id } = request.params;
+    const status = serviceSales.verifySaleStatus(id);
+    const updateSaleStatus = await serviceSales.updateSaleToPreparing(id, status);
+    return response.status(200).json(updateSaleStatus);
+  } catch (error) {
+      return response.status(404).json({ message: error.message });
+  }
+};
+
 module.exports = { 
   getSaleById, 
   getAllSales, 
   salesCreate, 
   getAllSalesByUserId,
-  getAllSalesBySellerId, 
+  getAllSalesBySellerId,
+  updateSaleToPreparing,
 };
