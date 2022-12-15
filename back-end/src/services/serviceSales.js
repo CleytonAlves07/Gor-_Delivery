@@ -16,6 +16,14 @@ const getAllSales = async () => {
   return sales;
 };
 
+const getAllSalesByUserId = async (userId) => {
+  const salesByUserId = await Sale.findAll({
+    where: { userId },
+  });
+
+  return salesByUserId;
+};
+
 const saleCreate = async ({ 
   userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate, status }) => {
   const createSales = await Sale.create({ 
@@ -23,4 +31,4 @@ const saleCreate = async ({
   return createSales;
 };
 
-module.exports = { getAllSales, getSaleById, saleCreate, getSaleBySeller };
+module.exports = { getAllSales, getSaleById, saleCreate, getSaleBySeller, getAllSalesByUserId };

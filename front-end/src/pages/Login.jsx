@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { requestLogin, setToken } from '../services/requests';
 
@@ -43,6 +43,12 @@ function Login() {
 
     push('/register');
   };
+
+  useEffect(() => {
+    if (localStorage.getItem('user')) {
+      push('/customer/products');
+    }
+  }, []);
 
   return (
     <form>

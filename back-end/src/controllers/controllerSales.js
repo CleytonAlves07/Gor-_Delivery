@@ -1,4 +1,5 @@
 const serviceSales = require('../services/serviceSales');
+const serviceUser = require('../services/serviceUser');
 
 const getSaleById = async (request, response) => {
   try {
@@ -36,4 +37,16 @@ const salesCreate = async (request, response) => {
   }
 };
 
-module.exports = { getSaleById, getAllSales, salesCreate };
+const getAllSalesByUserId = async (request, response) => {
+  try {
+    const { email } = request.user;
+    const idUser = await serviceUser.getUserIdByEmail(email);
+    console.log(idUser);
+    const salesByUserId = await serviceSales.getAllSalesByUserId(idUser);
+    return response.status(200).json(salesByUserId);
+  } catch (error) {
+      return response.status(404).json({ message: error.message });
+  }
+};
+
+module.exports = { getSaleById, getAllSales, salesCreate, getAllSalesByUserId };
