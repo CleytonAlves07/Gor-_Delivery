@@ -33,4 +33,9 @@ export const getOrdersUserById = async (token) => {
   return data;
 };
 
+export const getOrdersSellerById = async (token) => {
+  const data = await api.get('/sales/seller', { headers: { Authorization: token } });
+  return data;
+};
+
 export default api;

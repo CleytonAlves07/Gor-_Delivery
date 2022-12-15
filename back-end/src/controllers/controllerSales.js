@@ -49,4 +49,22 @@ const getAllSalesByUserId = async (request, response) => {
   }
 };
 
-module.exports = { getSaleById, getAllSales, salesCreate, getAllSalesByUserId };
+const getAllSalesBySellerId = async (request, response) => {
+  try {
+    const { email } = request.user;
+    const idUser = await serviceUser.getUserIdByEmail(email);
+    console.log(idUser);
+    const salesByUserId = await serviceSales.getAllSalesBySellerId(idUser);
+    return response.status(200).json(salesByUserId);
+  } catch (error) {
+      return response.status(404).json({ message: error.message });
+  }
+};
+
+module.exports = { 
+  getSaleById, 
+  getAllSales, 
+  salesCreate, 
+  getAllSalesByUserId,
+  getAllSalesBySellerId, 
+};

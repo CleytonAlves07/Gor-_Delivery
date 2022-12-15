@@ -6,6 +6,7 @@ import Register from './pages/Register';
 import Checkout from './pages/Checkout';
 import OrdersDetails from './pages/OrdersDetails';
 import Orders from './pages/Orders';
+import SellerOrders from './pages/SellerOrder';
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
       <Route exact path="/customer/checkout" component={ Checkout } />
       <Route exact path="/customer/orders" component={ Orders } />
       <Route exact path="/customer/orders/:id" component={ OrdersDetails } />
+      <Route exact path="/seller/orders" component={ SellerOrders } />
     </Switch>
   );
 }

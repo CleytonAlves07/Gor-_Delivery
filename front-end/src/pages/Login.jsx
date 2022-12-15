@@ -7,6 +7,7 @@ function Login() {
   const [password, setPassword] = useState('');
   const [wrongLogin, setWrongLogin] = useState(false);
   const { push } = useHistory();
+  const userRole = JSON.parse(localStorage.getItem('user'));
 
   const validEmail = () => {
     const regex = /\S+@\S+\.\S+/;
@@ -31,9 +32,13 @@ function Login() {
 
       localStorage.setItem('user', JSON.stringify(userInfo));
       setWrongLogin(false);
-      push('/customer/products');
+      if (userInfo.role === 'seller') {
+        console.log(userInfo);
+        push('/seller/orders');
+      } else {
+        push('/customer/products');
+      }
     } catch (error) {
-      console.log('O Error é :', error);
       setWrongLogin(true);
     }
   };
@@ -45,8 +50,12 @@ function Login() {
   };
 
   useEffect(() => {
-    if (localStorage.getItem('user')) {
-      push('/customer/products');
+    if (userRole) {
+      if (userRole.role === 'seller') {
+        push('/seller/orders');
+      } else {
+        push('/customer/products');
+      }
     }
   }, []);
 
