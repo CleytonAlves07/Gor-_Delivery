@@ -1,8 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import moment from 'moment';
-import api from '../services/requests';
+import NavBar from '../components/NavBar';
+import api, { updtSale } from '../services/requests';
 import ContextDelivery from '../context/Context';
+import { getUserLogged } from '../services/localStorage';
 
 function OrdersSellerDetails() {
   const {
@@ -34,6 +36,42 @@ function OrdersSellerDetails() {
     saleProductId();
   }, []);
 
+  const handlePreparing = async () => {
+    const { token } = getUserLogged();
+    const { userId, sellerId, totalPrice, deliveryAddress,
+      deliveryNumber, saleDate } = orderDetail;
+    const updtObj = {
+      userId,
+      sellerId,
+      totalPrice,
+      deliveryAddress,
+      deliveryNumber,
+      saleDate,
+      status: 'Preparando',
+    };
+    const newUpdt = { ...updtObj };
+    await updtSale(token, id, newUpdt);
+    ordersId();
+  };
+
+  const handleTransit = async () => {
+    const { token } = getUserLogged();
+    const { userId, sellerId, totalPrice, deliveryAddress,
+      deliveryNumber, saleDate } = orderDetail;
+    const updtObj = {
+      userId,
+      sellerId,
+      totalPrice,
+      deliveryAddress,
+      deliveryNumber,
+      saleDate,
+      status: 'Em Trânsito',
+    };
+    const newUpdt = { ...updtObj };
+    await updtSale(token, id, newUpdt);
+    ordersId();
+  };
+
   const data = moment(orderDetail.saleDate).format('DD/MM/YYYY');
   const totalPrice = orderDetail.totalPrice?.replace('.', ',');
   const arraySale = saleProducts[0]?.product;
@@ -41,7 +79,7 @@ function OrdersSellerDetails() {
 
   return (
     <section>
-      {/* <NavBar /> */}
+      <NavBar />
       <h1>Detalhes do Pedido</h1>
       <div>
         <h3
@@ -65,13 +103,16 @@ function OrdersSellerDetails() {
         <button
           type="button"
           data-testid="seller_order_details__button-preparing-check"
+          onClick={ handlePreparing }
+          disabled={ orderDetail.status !== 'Pendente' }
         >
           PREPARAR PEDIDO
         </button>
         <button
           type="button"
           data-testid="seller_order_details__button-dispatch-check"
-          disabled
+          onClick={ handleTransit }
+          disabled={ orderDetail.status !== 'Preparando' }
         >
           SAIU PARA ENTREGA
         </button>

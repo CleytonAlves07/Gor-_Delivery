@@ -51,6 +51,17 @@ const updateSaleToPreparing = async (id, status) => {
   }
 };
 
+const updtSale = async (id, rbody) => {
+  const { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate, status } = rbody;
+
+  await Sale.update(
+    { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate, status },
+    { where: { id } },
+  );
+
+  return { id, ...rbody };
+};
+
 const verifySaleStatus = async (id) => {
   const status = await Sale.findOne({ where: { id } });
   return status.dataValues.status;
@@ -65,5 +76,6 @@ module.exports = {
   getAllSalesBySellerId,
   updateSaleToPreparing,
   verifySaleStatus,
+  updtSale,
   // updateSaleToDelivering,
 };
