@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getOrdersUserById } from '../services/requests';
+import { getOrdersSellerById } from '../services/requests';
 import { getUserLogged } from '../services/localStorage';
 
 const moment = require('moment');
 
 function Orders() {
-  const [orders, setOrders] = useState([]);
+  const [ordersSeller, setOrdersSeller] = useState([]);
   const forMagicNumber = 4;
 
-  const getOrdersUserId = async (token) => {
-    const data = await getOrdersUserById(token);
-    setOrders(data.data);
+  const getOrdersSellerId = async (token) => {
+    const data = await getOrdersSellerById(token);
+    setOrdersSeller(data.data);
   };
 
   useEffect(() => {
     const { token } = getUserLogged();
-    getOrdersUserId(token);
-    console.log(orders);
+    getOrdersSellerId(token);
+    console.log(ordersSeller);
   }, []);
 
   return (
@@ -25,11 +25,11 @@ function Orders() {
       <h1>PEDIDOS</h1>
       <div>
         {
-          orders?.map((o) => (
+          ordersSeller?.map((o) => (
             <section key={ o.id }>
-              <Link to={ `/customer/orders/${o.id}` }>
+              <Link to={ `/seller/orders/${o.id}` }>
                 <div
-                  data-testid={ `customer_orders__element-order-id-${o.id}` }
+                  data-testid={ `seller_orders__element-order-id-${o.id}` }
                 >
                   <p>
                     PEDIDO
@@ -39,18 +39,18 @@ function Orders() {
                   </p>
                 </div>
                 <div
-                  data-testid={ `customer_orders__element-delivery-status-${o.id}` }
+                  data-testid={ `seller_orders__element-delivery-status-${o.id}` }
                 >
                   <p>{o.status}</p>
                 </div>
                 <div>
                   <div
-                    data-testid={ `customer_orders__element-order-date-${o.id}` }
+                    data-testid={ `seller_orders__element-order-date-${o.id}` }
                   >
                     { moment(o.saleDate).format('DD/MM/YYYY') }
                   </div>
                   <div
-                    data-testid={ `customer_orders__element-card-price-${o.id}` }
+                    data-testid={ `seller_orders__element-card-price-${o.id}` }
                   >
                     R$
                     {o.totalPrice.replace('.', ',')}

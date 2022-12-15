@@ -9,6 +9,7 @@ function Provider({ children }) {
   const [cart, setCart] = useState(JSON
     .parse(localStorage.getItem('deliveryCart')) || []);
   const [orderDetail, setOrderDetail] = useState([]);
+  const [saleProducts, setsaleProducts] = useState([]);
 
   const context = useMemo(() => ({
     name,
@@ -21,7 +22,9 @@ function Provider({ children }) {
     setCart,
     orderDetail,
     setOrderDetail,
-  }), [name, user, getProducts, cart, orderDetail]);
+    saleProducts,
+    setsaleProducts,
+  }), [name, user, getProducts, cart, orderDetail, saleProducts]);
   return (
     <MyContext.Provider value={ context }>
       { children }
