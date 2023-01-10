@@ -48,9 +48,9 @@ function Product() {
     <div>
       <NavBar />
       <div>
-        <h1>CERVEJAS</h1>
+        <h1 style={ { margin: '50px' } }>CERVEJAS</h1>
       </div>
-      <div>
+      <div className="card-group">
         { getProducts?.map((p, i) => (
           <Card
             key={ i }
@@ -62,14 +62,17 @@ function Product() {
           />
         )) }
       </div>
-      <div>
+      <div className="d-grid gap-2 d-md-flex justify-content-md-end">
         <button
+          className="btn btn-primary"
           type="button"
           data-testid="customer_products__button-cart"
           disabled={ buttonDisabled }
           onClick={ handleClickCart }
         >
+          Valor total do pedido:
           <p
+            className=""
             data-testid="customer_products__checkout-bottom-value"
           >
             { totalCart }

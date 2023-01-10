@@ -47,35 +47,41 @@ function NavBar() {
   };
 
   return (
-    <nav>
-      <button
-        data-testid="customer_products__element-navbar-link-products"
-        type="button"
-        onClick={ handleClickProducts }
-      >
-        Produtos
-      </button>
-      <button
-        data-testid="customer_products__element-navbar-link-orders"
-        type="button"
-        onClick={ handleClickOrders }
-      >
-        Pedidos
-      </button>
-      <button
-        data-testid="customer_products__element-navbar-user-full-name"
-        type="button"
-        onClick={ handleClickProfile }
-      >
-        { name }
-      </button>
-      <button
-        data-testid="customer_products__element-navbar-link-logout"
-        type="button"
-        onClick={ handleClickLoggout }
-      >
-        Sair
-      </button>
+    <nav className="navbar bg-light">
+      <div className="container-fluid justify-content-start">
+        <button
+          className="btn btn-outline-primary me-2"
+          data-testid="customer_products__element-navbar-link-products"
+          type="button"
+          onClick={ handleClickProducts }
+        >
+          Produtos
+        </button>
+        <button
+          className="btn btn-outline-primary me-2"
+          data-testid="customer_products__element-navbar-link-orders"
+          type="button"
+          onClick={ handleClickOrders }
+        >
+          Pedidos
+        </button>
+        <button
+          className="btn btn-outline-primary me-2"
+          data-testid="customer_products__element-navbar-user-full-name"
+          type="button"
+          onClick={ handleClickProfile }
+        >
+          { name }
+        </button>
+        <button
+          className="btn btn-outline-primary me-2"
+          data-testid="customer_products__element-navbar-link-logout"
+          type="button"
+          onClick={ handleClickLoggout }
+        >
+          Sair
+        </button>
+      </div>
     </nav>
   );
 }

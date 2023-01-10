@@ -6,7 +6,7 @@ import { setLocalCart } from '../services/localStorage';
 function Card({ id, productImg, productName, productPrice, i }) {
   const [quantity, setQuantity] = useState(0);
   const { cart, setCart } = useContext(ContextDelivery);
-  const px = '70px';
+  const px = '95px';
 
   const getToLocalCart = (qttyProducts) => {
     const qttyProductAtt = Number(qttyProducts);
@@ -75,52 +75,61 @@ function Card({ id, productImg, productName, productPrice, i }) {
   };
 
   return (
-    <div>
-      <p
-        data-testid={ `customer_products__element-card-price-${id}` }
-        key={ id }
-      >
-        { `R$ ${productPrice.replace('.', ',')}` }
-      </p>
+    <div className="card" style={ { width: '18rem' } }>
       <img
+        className="card-img-top"
         data-testid={ `customer_products__img-card-bg-image-${id}` }
         src={ productImg }
         alt="productsImage"
-        height={ px }
         width={ px }
       />
-      <p
-        data-testid={ `customer_products__element-card-title-${id}` }
-      >
-        {productName}
-      </p>
-      <button
-        data-testid={ `customer_products__button-card-rm-item-${id}` }
-        name={ id }
-        type="button"
-        value={ productPrice }
-        onClick={ decrementProduct }
-      >
-        -
-      </button>
-      <input
-        data-testid={ `customer_products__input-card-quantity-${id}` }
-        id={ productPrice }
-        name={ productName }
-        value={ quantity }
-        onChange={ (event) => handleChangeInput(event) }
-        type="text"
-      />
-      <button
-        data-testid={ `customer_products__button-card-add-item-${id}` }
-        name={ id }
-        id={ i }
-        type="button"
-        value={ productPrice }
-        onClick={ incrementProduct }
-      >
-        +
-      </button>
+      <div className="card-body">
+        <h5
+          className="card-title"
+          data-testid={ `customer_products__element-card-title-${id}` }
+        >
+          {productName}
+        </h5>
+        <p
+          className="card-text"
+          data-testid={ `customer_products__element-card-price-${id}` }
+          key={ id }
+        >
+          { `R$ ${productPrice.replace('.', ',')}` }
+        </p>
+        <div className="input-group mb-3">
+          <button
+            className="btn btn-primary"
+            data-testid={ `customer_products__button-card-rm-item-${id}` }
+            name={ id }
+            type="button"
+            value={ productPrice }
+            onClick={ decrementProduct }
+          >
+            -
+          </button>
+          <input
+            className="form-control"
+            data-testid={ `customer_products__input-card-quantity-${id}` }
+            id={ productPrice }
+            name={ productName }
+            value={ quantity }
+            onChange={ (event) => handleChangeInput(event) }
+            type="text"
+          />
+          <button
+            className="btn btn-primary"
+            data-testid={ `customer_products__button-card-add-item-${id}` }
+            name={ id }
+            id={ i }
+            type="button"
+            value={ productPrice }
+            onClick={ incrementProduct }
+          >
+            +
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

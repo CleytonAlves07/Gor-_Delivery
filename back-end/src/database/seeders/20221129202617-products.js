@@ -6,7 +6,7 @@ module.exports = {
     [
       {
         id: 1,
-        name: 'Skol Lata 250ml',
+        name: 'Skol Lata 350ml',
         price: 2.20,
         url_image: 'http://localhost:3001/images/skol_lata_350ml.jpg',
       },
@@ -24,13 +24,13 @@ module.exports = {
       },
       {
         id: 4,
-        name: 'Brahma 600ml',
+        name: 'Brahma Pilsen 600ml',
         price: 7.50,
         url_image: 'http://localhost:3001/images/brahma_600ml.jpg',
       },
       {
         id: 5,
-        name: 'Skol 269ml',
+        name: 'Skol Lata 269ml',
         price: 2.19,
         url_image: 'http://localhost:3001/images/skol_269ml.jpg',
       },
@@ -42,7 +42,7 @@ module.exports = {
       },
       {
         id: 7,
-        name: 'Becks 330ml',
+        name: 'Becks Pilsen 330ml',
         price: 4.99,
         url_image: 'http://localhost:3001/images/becks_330ml.jpg',
       },
@@ -54,7 +54,7 @@ module.exports = {
       },
       {
         id: 9,
-        name: 'Becks 600ml',
+        name: 'Becks Pilsen 600ml',
         price: 8.89,
         url_image: 'http://localhost:3001/images/becks_600ml.jpg',
       },
