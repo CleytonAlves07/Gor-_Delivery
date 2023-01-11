@@ -63,32 +63,39 @@ function OrdersDetails() {
       <NavBar />
       <h1>Detalhes do Pedido</h1>
       <div>
-        <h3
-          data-testid="customer_order_details__element-order-details-label-order-id"
-        >
-          Pedido:
-          {orderDetail.id}
-        </h3>
-        <h5
-          data-testid="customer_order_details__element-order-details-label-seller-name"
-        >
-          P Vend:
-          {orderDetail.seller_id?.name}
-        </h5>
-        <div
-          data-testid={ dataTest }
-        >
-          Status:
-          { orderDetail.status }
-        </div>
-        <div
-          data-testid="customer_order_details__element-order-details-label-order-date"
-        >
-          Data Venda:
-          { data }
-        </div>
+        <ul className="list-group">
+          <li
+            className="list-group-item"
+            data-testid="customer_order_details__element-order-details-label-order-id"
+          >
+            {`Pedido: ${orderDetail.id}`}
+
+          </li>
+          <li
+            className="list-group-item"
+            data-testid="customer_order_details__element-order-details-label-seller-name"
+          >
+            {`Pedido Vendedor: ${orderDetail.seller_id?.name}`}
+
+          </li>
+          <li
+            className="list-group-item"
+            data-testid={ dataTest }
+          >
+            {`Status: ${orderDetail.status}`}
+
+          </li>
+          <li
+            className="list-group-item"
+            data-testid="customer_order_details__element-order-details-label-order-date"
+          >
+            {`Data Venda: ${data}`}
+          </li>
+        </ul>
+
         <button
           type="button"
+          className="btn btn-outline-primary me-2"
           data-testid="customer_order_details__button-delivery-check"
           onClick={ handleDelivered }
           disabled={ orderDetail.status !== 'Em Trânsito' }
@@ -96,14 +103,14 @@ function OrdersDetails() {
           MARCAR COMO ENTREGUE
         </button>
       </div>
-      <table>
+      <table className="table table-hover">
         <thead>
           <tr>
-            <th>Item</th>
-            <th>Descrição</th>
-            <th>Quantidade</th>
-            <th>Valor Unitário</th>
-            <th>Sub-total</th>
+            <th scope="col">Item</th>
+            <th scope="col">Descrição</th>
+            <th scope="col">Quantidade</th>
+            <th scope="col">Valor Unitário</th>
+            <th scope="col">Sub-total</th>
           </tr>
         </thead>
         <tbody>
@@ -154,9 +161,9 @@ function OrdersDetails() {
       </table>
       <div
         data-testid="customer_order_details__element-order-total-price"
+        className="h5"
       >
-        Total:
-        { totalPrice }
+        {`Total: R$ ${totalPrice}`}
       </div>
     </section>
   );

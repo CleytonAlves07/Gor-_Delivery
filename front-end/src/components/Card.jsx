@@ -75,7 +75,7 @@ function Card({ id, productImg, productName, productPrice, i }) {
   };
 
   return (
-    <div className="card" style={ { width: '18rem' } }>
+    <div className="card" style={ { width: '20rem' } }>
       <img
         className="card-img-top"
         data-testid={ `customer_products__img-card-bg-image-${id}` }
@@ -109,7 +109,7 @@ function Card({ id, productImg, productName, productPrice, i }) {
             -
           </button>
           <input
-            className="form-control"
+            className="form-control text-center"
             data-testid={ `customer_products__input-card-quantity-${id}` }
             id={ productPrice }
             name={ productName }

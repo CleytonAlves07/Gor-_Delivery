@@ -48,42 +48,42 @@ function Register() {
   };
 
   return (
-
     <div>
       <header>
-        <h2>Cadastro</h2>
+        <h2 className="h3 mb-3 fw-normal">Cadastro</h2>
       </header>
-      <div>
+      <main className="form-signin w-100 m-auto">
         <form>
-          <label htmlFor="nome">
-            Nome
+          <div className="form-floating">
             <input
               data-testid="common_register__input-name"
+              className="form-control"
               type="text"
               placeholder="Insira seu nome"
               onChange={ (event) => setName(event.target.value) }
             />
-          </label>
-
-          <label htmlFor="email">
-            Email
+          </div>
+          <label htmlFor="nome">Nome</label>
+          <div className="form-floating">
             <input
               data-testid="common_register__input-email"
+              className="form-control"
               type="text"
               placeholder="Insira seu email"
               onChange={ (event) => setEmail(event.target.value) }
             />
-          </label>
-
-          <label htmlFor="senha">
-            Senha
+          </div>
+          <label htmlFor="email">Email</label>
+          <div className="form-floating">
             <input
               data-testid="common_register__input-password"
+              className="form-control"
               type="password"
               placeholder="Insira sua senha"
               onChange={ (event) => setPassword(event.target.value) }
             />
-          </label>
+          </div>
+          <label htmlFor="senha">Senha</label>
 
           { personalDataWrong ? (
             <p
@@ -95,6 +95,7 @@ function Register() {
 
           <button
             data-testid="common_register__button-register"
+            className="w-100 btn btn-lg btn-primary"
             type="button"
             disabled={ !validLogin() }
             onClick={ (event) => handleClick(event) }
@@ -102,7 +103,7 @@ function Register() {
             Cadastrar
           </button>
         </form>
-      </div>
+      </main>
     </div>
   );
 }

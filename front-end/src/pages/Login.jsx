@@ -63,7 +63,7 @@ function Login() {
     <main className="form-signin w-100 m-auto">
       <form>
         <img className="mb-4" src="../cup-straw.svg" alt="cup" width="72" height="57" />
-        <h1 className="h3 mb-3 fw-normal">DELIVERY DRINKS APP</h1>
+        <h1 className="h3 mb-3 fw-normal">GoRó DeLiVeRy</h1>
         <div className="form-floating">
           <input
             className="form-control"

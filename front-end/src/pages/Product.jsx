@@ -51,16 +51,19 @@ function Product() {
         <h1 style={ { margin: '50px' } }>CERVEJAS</h1>
       </div>
       <div className="card-group">
-        { getProducts?.map((p, i) => (
-          <Card
-            key={ i }
-            i={ i }
-            productName={ p.name }
-            productImg={ p.url_image }
-            productPrice={ p.price }
-            id={ p.id }
-          />
-        )) }
+        <div className="row justify-content-center">
+          { getProducts?.map((p, i) => (
+            <Card
+              key={ i }
+              i={ i }
+              className="col-2"
+              productName={ p.name }
+              productImg={ p.url_image }
+              productPrice={ p.price }
+              id={ p.id }
+            />
+          ))}
+        </div>
       </div>
       <div className="d-grid gap-2 d-md-flex justify-content-md-end">
         <button
@@ -70,12 +73,12 @@ function Product() {
           disabled={ buttonDisabled }
           onClick={ handleClickCart }
         >
-          Valor total do pedido:
+          Total
           <p
             className=""
             data-testid="customer_products__checkout-bottom-value"
           >
-            { totalCart }
+            {`R$ ${totalCart}`}
           </p>
         </button>
       </div>

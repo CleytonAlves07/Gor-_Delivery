@@ -117,7 +117,7 @@ function OrdersSellerDetails() {
           SAIU PARA ENTREGA
         </button>
       </div>
-      <table>
+      <table className="table table-hover">
         <thead>
           <tr>
             <th>Item</th>

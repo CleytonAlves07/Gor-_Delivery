@@ -89,49 +89,67 @@ function ClientDetails() {
   return (
     <section>
       <form>
-        <select
-          data-testid="customer_checkout__select-seller"
-          name="seller"
-          value={ sellerId }
-          onChange={ (event) => setSellerId(event.target.value) }
-        >
-          { sellers?.map((el, i) => (
-            <option
-              value={ el.id }
-              key={ i }
-            >
-              {el.name}
-            </option>
-          )) }
-        </select>
-        <label htmlFor="endereco">
-          Endereço
-          <input
-            type="text"
-            data-testid="customer_checkout__input-address"
-            name="address"
-            value={ sellersInfo.address }
-            onChange={ handleInfos }
-          />
-        </label>
-        <label htmlFor="numero">
-          Numero
-          <input
-            type="text"
-            name="addressNumber"
-            value={ sellersInfo.addressNumber }
-            data-testid="customer_checkout__input-address-number"
-            onChange={ handleInfos }
-          />
-        </label>
+        <div>
+          <select
+            data-testid="customer_checkout__select-seller"
+            style={ {
+              width: '17rem',
+              padding: '8px',
+              marginTop: '10px',
+              marginBottom: '10px' } }
+            name="seller"
+            value={ sellerId }
+            onChange={ (event) => setSellerId(event.target.value) }
+          >
+            {sellers?.map((el, i) => (
+              <option
+                value={ el.id }
+                key={ i }
+              >
+                {el.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="form-group">
+          <label htmlFor="endereco">
+            Endereço
+            <input
+              type="text"
+              className="form-control"
+              style={ { marginBottom: '10px' } }
+              data-testid="customer_checkout__input-address"
+              name="address"
+              value={ sellersInfo.address }
+              onChange={ handleInfos }
+            />
+          </label>
+        </div>
+        <div className="form-group">
+          <label htmlFor="numero">
+            Numero
+            <input
+              type="text"
+              className="form-control"
+              name="addressNumber"
+              value={ sellersInfo.addressNumber }
+              data-testid="customer_checkout__input-address-number"
+              onChange={ handleInfos }
+            />
+          </label>
+        </div>
       </form>
-      <button
-        type="submit"
-        data-testid="customer_checkout__button-submit-order"
-        onClick={ postOrder }
-      >
-        FINALIZAR PEDIDO
-      </button>
+      <div>
+        <button
+          className="btn btn-outline-primary me-2"
+          style={ { marginTop: '20px' } }
+          type="submit"
+          data-testid="customer_checkout__button-submit-order"
+          onClick={ postOrder }
+        >
+          FINALIZAR PEDIDO
+        </button>
+      </div>
     </section>
   );
 }

@@ -8,9 +8,9 @@ function Checkout() {
     <div>
       <NavBar />
 
-      <p>
+      <h1 className="text-primary">
         Finalizar Pedido
-      </p>
+      </h1>
       <div>
 
         <CardCheckout />
@@ -18,9 +18,9 @@ function Checkout() {
       </div>
       {/* <div>{wrongSales ? <p>Deu ruim!</p> : <p>Bom trabalho</p>}</div> */}
       <div>
-        <p>
+        <h4>
           Detalhes e Endereço para Entrega
-        </p>
+        </h4>
         <ClientDetails />
       </div>
 

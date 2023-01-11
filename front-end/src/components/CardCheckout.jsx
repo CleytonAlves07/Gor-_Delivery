@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { FaRegTrashAlt } from 'react-icons/fa';
 import ContextDelivery from '../context/Context';
 
 function CardCheckout() {
@@ -13,15 +14,15 @@ function CardCheckout() {
 
   return (
     <div>
-      <table>
+      <table className="table table-hover">
         <thead>
           <tr>
-            <th>Item</th>
-            <th>Descrição</th>
-            <th>Quantidade</th>
-            <th>Valor Unitário</th>
-            <th>Sub-total</th>
-            <th>Remover Item</th>
+            <th scope="col">Item</th>
+            <th scope="col">Descrição</th>
+            <th scope="col">Quantidade</th>
+            <th scope="col">Valor Unitário</th>
+            <th scope="col">Sub-total</th>
+            <th scope="col">Remover Item</th>
           </tr>
         </thead>
         <tbody>
@@ -71,10 +72,12 @@ function CardCheckout() {
                 }
               >
                 <button
+                  className="btn btn-outline-primary me-2"
                   onClick={ () => removeProduct(p) }
                   type="button"
                 >
-                  Remove
+
+                  <FaRegTrashAlt />
 
                 </button>
               </td>
@@ -84,6 +87,7 @@ function CardCheckout() {
       </table>
       <div
         data-testid="customer_checkout__element-order-total-price"
+        className="h5"
       >
         {`Total: ${cart
           .reduce((acc, curr) => acc + Number(curr.totalValues), 0)
